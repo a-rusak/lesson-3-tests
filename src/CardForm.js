@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Title from './Title';
 import './CardForm.css';
 
@@ -12,10 +12,14 @@ export class CardForm extends Component {
     props.onChangeTimeOver(false);
   }
 
+  static defaultProps = {
+    cardNumber: ``
+  };
+
   componentDidMount() {
     this.id = setInterval(() => {
       const leftTime = Math.max(this.state.leftTime - 1, 0);
-      this.setState({leftTime});
+      this.setState({ leftTime });
       if (leftTime === 0 && this.state.leftTime === 1) {
         this.props.onChangeTimeOver(true);
       }
@@ -29,15 +33,22 @@ export class CardForm extends Component {
   handleChangeForm = evt => {
     const { name, value } = evt.target;
     this.props.onChangeForm(name, value);
-  }
+  };
 
   render() {
-    const {leftTime} = this.state;
+    const { leftTime } = this.state;
     return (
-      <form className="card-form" onChange={this.handleChangeForm}>
+      <form className="card-form">
         <Title>Номер карты</Title>
-        <p className="left-time">Осталось {leftTime} секунд</p>
-        <input type="text" name="cardNumber"/>
+        <p className="left-time">
+          Осталось {leftTime} секунд
+        </p>
+        <input
+          type="text"
+          name="cardNumber"
+          onChange={this.handleChangeForm}
+          value={this.props.cardNumber}
+        />
       </form>
     );
   }
