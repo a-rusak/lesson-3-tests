@@ -26,13 +26,19 @@ export class CardForm extends Component {
     clearInterval(this.id);
   }
 
+  handleChangeForm = evt => {
+    const { name, value } = evt.target;
+    this.props.onChangeForm(name, value);
+  }
+
   render() {
     const {leftTime} = this.state;
     return (
-      <div>
+      <form className="card-form" onChange={this.handleChangeForm}>
         <Title>Номер карты</Title>
         <p className="left-time">Осталось {leftTime} секунд</p>
-      </div>
+        <input type="text" name="cardNumber"/>
+      </form>
     );
   }
 }
